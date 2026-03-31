@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DA Interview Prep — UK Data Analyst Question Bank</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d0d;
+  --paper: #f5f2eb;
+  --cream: #ede9df;
+  --card: #ffffff;
+  --accent: #c84b2f;
+  --accent2: #2a6db5;
+  --accent3: #1a8c5a;
+  --accent4: #7b4ea0;
+  --muted: #6b6760;
+  --border: #ddd9d0;
+  --border2: #ccc8be;
+  --tech-bg: #e8f0fb; --tech-text: #1a4a8c; --tech-border: #b5cef0;
+  --case-bg: #e6f5ec; --case-text: #145c30; --case-border: #90d4a8;
+  --beh-bg: #fdf0e2; --beh-text: #7a3a00; --beh-border: #f0c080;
+  --ind-bg: #f0eafc; --ind-text: #4a1c7a; --ind-border: #c8a8f0;
+  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 64px 40px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(200,75,47,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(42,109,181,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+.hero-badge {
+  display: inline-block;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(200,75,47,0.4);
+  border-radius: 20px;
+  padding: 4px 14px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.hero h1 span { color: var(--accent); }
+.hero p {
+  font-size: 17px;
+  font-weight: 300;
+  color: rgba(245,242,235,0.72);
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hero-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--paper);
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: rgba(245,242,235,0.5);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+.hero-divider { width: 60px; height: 3px; background: var(--accent); margin-bottom: 20px; border-radius: 2px; }
+
+/* ─── CONFIGURATOR ─── */
+.config-section {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.config-inner { max-width: 1100px; margin: 0 auto; }
+.config-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.config-row {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+@media(max-width: 768px) {
+  .config-row { grid-template-columns: 1fr; gap: 20px; }
+  .hero { padding: 40px 20px 36px; }
+  .config-section { padding: 20px; }
+  .main-content { padding: 20px; }
+}
+
+/* Year slider */
+.year-block {}
+.year-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.year-badge {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  min-width: 32px;
+}
+.year-sub { font-size: 13px; color: var(--muted); font-weight: 300; }
+.year-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 160px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--pct, 0%), var(--border2) var(--pct, 0%), var(--border2) 100%);
+  outline: none;
+  cursor: pointer;
+}
+.year-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(200,75,47,0.18);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.year-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px rgba(200,75,47,0.25); }
+.year-ticks { display: flex; justify-content: space-between; width: 160px; margin-top: 4px; }
+.year-tick { font-size: 10px; color: var(--muted); }
+
+/* Pill selectors */
+.pill-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.pill:hover { border-color: var(--ink); color: var(--ink); }
+.pill.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.pill.active-accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Generate button */
+.gen-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.gen-btn {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 2px 10px rgba(200,75,47,0.3);
+}
+.gen-btn:hover { background: #b03820; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(200,75,47,0.4); }
+.gen-btn:active { transform: translateY(0); }
+.reset-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px;
+}
+.reset-btn:hover { color: var(--ink); }
+.gen-hint { font-size: 12px; color: var(--muted); font-weight: 300; }
+
+/* ─── MAIN CONTENT ─── */
+.main-content { max-width: 1100px; margin: 0 auto; padding: 40px 40px 80px; }
+
+/* Welcome state */
+.welcome-state {
+  text-align: center;
+  padding: 80px 40px;
+}
+.welcome-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+.welcome-state h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+.welcome-state p { font-size: 14px; color: var(--muted); font-weight: 300; max-width: 400px; margin: 0 auto; }
+
+/* Results header */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.results-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.results-meta { font-size: 13px; color: var(--muted); font-weight: 300; }
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.progress-bar-outer {
+  width: 200px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-inner {
+  height: 100%;
+  background: var(--accent3);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.progress-text { font-size: 12px; color: var(--muted); min-width: 50px; text-align: right; }
+
+/* Category section */
+.cat-section { margin-bottom: 48px; }
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+}
+.cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.cat-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+}
+.cat-count { font-size: 12px; color: var(--muted); margin-left: auto; font-weight: 300; }
+
+/* Search bar */
+.search-wrap { margin-bottom: 20px; position: relative; }
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  font-size: 15px;
+}
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  background: var(--card);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  transition: border-color 0.2s;
+}
+.search-input:focus { outline: none; border-color: var(--accent2); }
+.search-input::placeholder { color: var(--muted); }
+
+/* Question card */
+.q-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  animation: fadeSlideIn 0.3s ease both;
+}
+.q-card:hover { border-color: var(--border2); box-shadow: var(--shadow); }
+.q-card.done { opacity: 0.5; }
+.q-card.done .q-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.q-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  min-width: 32px;
+  padding-top: 3px;
+}
+.q-body { flex: 1 }
+.q-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 2px 9px;
+  border-radius: 12px;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+.q-text { font-size: 14px; line-height: 1.6; color: var(--ink); margin-bottom: 6px; }
+.q-hint {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 300;
+  font-style: italic;
+  padding-left: 10px;
+  border-left: 2px solid var(--border);
+}
+.done-btn {
+  flex-shrink: 0;
+  align-self: center;
+  font-size: 11px;
+  font-family: 'DM Sans', sans-serif;
+  padding: 4px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.done-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+.q-card.done .done-btn { background: #e6f5ec; color: var(--accent3); border-color: #90d4a8; }
+
+/* Difficulty badge */
+.diff-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 500;
+  margin-left: 8px;
+  color: var(--muted);
+}
+.diff-dot { width: 5px; height: 5px; border-radius: 50%; display: inline-block; }
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 300;
+}
+
+/* Footer */
+footer {
+  background: var(--ink);
+  color: rgba(245,242,235,0.45);
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+footer strong { color: var(--paper); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇬🇧 UK Job Market Edition</div>
+    <div class="hero-divider"></div>
+    <h1>Data Analyst<br><span>Interview Prep</span></h1>
+    <p>Personalise your question bank by experience, skills, and industry. Get 100 targeted questions built for UK-based data analyst roles.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">100</div><div class="hero-stat-label">Curated Questions</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Question Categories</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Experience Levels</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">Industry Sectors</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGURATOR -->
+<div class="config-section">
+  <div class="config-inner">
+    <div class="config-row">
+
+      <!-- Years experience -->
+      <div class="year-block">
+        <div class="config-label">Experience</div>
+        <div class="year-display">
+          <div class="year-badge" id="yr-num">3</div>
+          <div class="year-sub">years<br>experience</div>
+        </div>
+        <input type="range" class="year-slider" id="yr-slider" min="1" max="5" value="3" oninput="updateYear(this.value)">
+        <div class="year-ticks">
+          <span class="year-tick">1yr</span>
+          <span class="year-tick">2yr</span>
+          <span class="year-tick">3yr</span>
+          <span class="year-tick">4yr</span>
+          <span class="year-tick">5yr</span>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div>
+        <div class="config-label">Core Skills (pick any)</div>
+        <div class="pill-group" id="skill-pills">
+          <span class="pill" onclick="togglePill(this,'skill')">SQL</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Python</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Excel</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Power BI</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Tableau</span>
+          <span class="pill" onclick="togglePill(this,'skill')">R</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Statistics</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Machine Learning</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Data Engineering</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Storytelling</span>
+          <span class="pill" onclick="togglePill(this,'skill')">A/B Testing</span>
+          <span class="pill" onclick="togglePill(this,'skill')">Forecasting</span>
+        </div>
+      </div>
+
+      <!-- Industry -->
+      <div>
+        <div class="config-label">Industry Sector (pick any)</div>
+        <div class="pill-group" id="ind-pills">
+          <span class="pill" onclick="togglePill(this,'ind')">Retail & Ecommerce</span>
+          <span class="pill" onclick="togglePill(this,'ind')">Finance & Banking</span>
+          <span class="pill" onclick="togglePill(this,'ind')">Healthcare & NHS</span>
+          <span class="pill" onclick="togglePill(this,'ind')">Tech & SaaS</span>
+          <span class="pill" onclick="togglePill(this,'ind')">Marketing & Media</span>
+          <span class="pill" onclick="togglePill(this,'ind')">Logistics & Supply Chain</span>
+          <span class="pill" onclick="togglePill(this,'ind')">Consulting</span>
+          <span class="pill" onclick="togglePill(this,'ind')">Energy & Utilities</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-row">
+      <button class="gen-btn" onclick="generateQuestions()">▶ Generate My 100 Questions</button>
+      <button class="reset-btn" onclick="resetAll()">Reset all filters</button>
+      <span class="gen-hint" id="sel-summary">Select your experience, skills & industry above</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <div id="welcome-state" class="welcome-state">
+    <div class="welcome-icon">🎯</div>
+    <h2>Your personalised question bank awaits</h2>
+    <p>Set your experience level, select the skills you want to focus on, and choose your target industry above — then hit Generate.</p>
+  </div>
+
+  <div id="results-area" style="display:none">
+    <div class="results-header">
+      <div>
+        <div class="results-title" id="results-title">Your Interview Questions</div>
+        <div class="results-meta" id="results-meta"></div>
+      </div>
+      <div>
+        <div class="search-wrap" style="margin-bottom:10px">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="q-search" placeholder="Search questions or hints…" oninput="filterQuestions()" style="width:280px">
+        </div>
+        <div class="progress-wrap" style="justify-content:flex-end">
+          <div class="progress-bar-outer"><div class="progress-bar-inner" id="pbar" style="width:0%"></div></div>
+          <div class="progress-text" id="prog-text">0 / 100 done</div>
+        </div>
+      </div>
+    </div>
+    <div id="categories-container"></div>
+  </div>
+</div>
+
+<footer>
+  Built for <strong>UK Data Analyst Interview Prep</strong> · Covers SQL, Python, Statistics, Behavioural & Industry Questions · GDPR-aware · 2025
+</footer>
+
+<script>
+// ─── QUESTION BANK ───────────────────────────────────────────────────────────
+// Each question has: cat, q, h, skills[], industries[], minYr, maxYr, diff (1-5)
+const ALL_QS = [
+// ── TECHNICAL ────────────────────────────────────────────────────────────────
+{id:1,cat:'tech',q:'What is the difference between INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN in SQL? When would you use each?',h:'Tests foundational SQL join knowledge and practical judgment',skills:['SQL'],industries:['all'],minYr:1,maxYr:5,diff:1},
+{id:2,cat:'tech',q:'How would you identify and remove duplicate rows from a large table in SQL without deleting valid records?',h:'Tests SQL deduplication and use of window functions like ROW_NUMBER()',skills:['SQL'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:3,cat:'tech',q:'Explain what a window function is in SQL. Give an example using RANK(), DENSE_RANK(), and ROW_NUMBER().',h:'Tests intermediate SQL and understanding of analytical functions',skills:['SQL'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:4,cat:'tech',q:'How would you write a SQL query to calculate a 7-day rolling average of daily sales?',h:'Tests window function application and time-series thinking in SQL',skills:['SQL','Forecasting'],industries:['Retail & Ecommerce','Finance & Banking'],minYr:2,maxYr:5,diff:3},
+{id:5,cat:'tech',q:'What is the difference between WHERE and HAVING clauses? When does each get executed in the SQL query lifecycle?',h:'Tests understanding of SQL execution order and aggregation logic',skills:['SQL'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:6,cat:'tech',q:'You have two tables: one with 10 million rows, one with 100k. How would you optimise a JOIN query between them for performance?',h:'Tests SQL query optimisation and indexing awareness',skills:['SQL'],industries:['all'],minYr:3,maxYr:5,diff:4},
+{id:7,cat:'tech',q:'Explain what a subquery is versus a Common Table Expression (CTE). When would you prefer one over the other?',h:'Tests SQL readability and structural thinking',skills:['SQL'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:8,cat:'tech',q:'How do you handle NULL values in SQL? What is the difference between IS NULL, COALESCE, and NULLIF?',h:'Tests data quality awareness and SQL null-handling functions',skills:['SQL'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:9,cat:'tech',q:'Write a SQL query to find the second-highest salary in an employee table without using LIMIT or TOP.',h:'Tests creative SQL problem-solving and subquery or dense_rank usage',skills:['SQL'],industries:['Finance & Banking','Consulting'],minYr:2,maxYr:5,diff:3},
+{id:10,cat:'tech',q:'What is indexing in a relational database? What are the trade-offs between clustered and non-clustered indexes?',h:'Tests database design understanding and performance trade-off awareness',skills:['SQL','Data Engineering'],industries:['all'],minYr:3,maxYr:5,diff:4},
+{id:11,cat:'tech',q:'How would you use Python\'s pandas library to merge two DataFrames on multiple keys and handle mismatched data types?',h:'Tests Python/pandas proficiency and data manipulation skills',skills:['Python'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:12,cat:'tech',q:'Explain the difference between apply(), map(), and applymap() in pandas. When would you use each?',h:'Tests depth of pandas knowledge and vectorisation understanding',skills:['Python'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:13,cat:'tech',q:'How do you handle missing data in a Python-based analysis? What are the pros and cons of different imputation strategies?',h:'Tests statistical thinking and practical data cleaning judgment',skills:['Python','Statistics'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:14,cat:'tech',q:'What is the difference between loc[] and iloc[] in pandas? When could using the wrong one cause a bug?',h:'Tests precision in Python indexing and common pitfall awareness',skills:['Python'],industries:['all'],minYr:1,maxYr:4,diff:2},
+{id:15,cat:'tech',q:'How would you use Python to read a 5GB CSV file without running out of memory?',h:'Tests large data handling and awareness of chunking or Dask-style approaches',skills:['Python','Data Engineering'],industries:['all'],minYr:3,maxYr:5,diff:4},
+{id:16,cat:'tech',q:'What is a pivot table in pandas? Write code to pivot a transactional dataset to show monthly revenue per product.',h:'Tests pivot/reshape operations and real-world aggregation logic',skills:['Python','Excel'],industries:['Retail & Ecommerce','Finance & Banking'],minYr:2,maxYr:5,diff:3},
+{id:17,cat:'tech',q:'Explain the concept of vectorisation in pandas/NumPy. Why is it preferred over for-loops for large datasets?',h:'Tests performance-aware coding and understanding of NumPy arrays',skills:['Python'],industries:['all'],minYr:3,maxYr:5,diff:4},
+{id:18,cat:'tech',q:'What is the difference between a histogram, a box plot, and a violin plot? When is each the most appropriate visualisation?',h:'Tests statistical visualisation literacy and chart selection judgment',skills:['Statistics','Tableau','Power BI','Python'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:19,cat:'tech',q:'How would you design a Power BI or Tableau dashboard for a non-technical stakeholder tracking weekly retail performance?',h:'Tests dashboard design principles and audience-appropriate communication',skills:['Power BI','Tableau','Storytelling'],industries:['Retail & Ecommerce'],minYr:1,maxYr:5,diff:2},
+{id:20,cat:'tech',q:'What is the difference between a measure and a dimension in Tableau or Power BI? How does this affect aggregation behaviour?',h:'Tests BI tool conceptual understanding and data modelling basics',skills:['Power BI','Tableau'],industries:['all'],minYr:1,maxYr:4,diff:2},
+{id:21,cat:'tech',q:'Explain the concept of a star schema versus a snowflake schema in data warehousing. What are the trade-offs?',h:'Tests data warehouse design knowledge relevant to BI reporting',skills:['Data Engineering','Power BI','Tableau'],industries:['all'],minYr:3,maxYr:5,diff:4},
+{id:22,cat:'tech',q:'How do you calculate and interpret a correlation coefficient? What are the limitations of correlation analysis?',h:'Tests statistical literacy and awareness of causation vs correlation',skills:['Statistics'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:23,cat:'tech',q:'What is the central limit theorem and why is it important for data analysts working with sample data?',h:'Tests foundational statistics relevant to hypothesis testing',skills:['Statistics','A/B Testing'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:24,cat:'tech',q:'Explain the difference between Type I and Type II errors in hypothesis testing. How do you control for each?',h:'Tests statistical testing rigour and understanding of significance thresholds',skills:['Statistics','A/B Testing'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:25,cat:'tech',q:'What is a p-value? Why has there been growing criticism of over-reliance on p < 0.05 as a decision threshold?',h:'Tests statistical depth and awareness of real-world analytical debate',skills:['Statistics','A/B Testing'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:26,cat:'tech',q:'How would you approach normalising a skewed distribution before including it in a regression model?',h:'Tests statistical data transformation techniques and modelling awareness',skills:['Statistics','Python','R'],industries:['all'],minYr:3,maxYr:5,diff:4},
+{id:27,cat:'tech',q:'What is the difference between supervised and unsupervised machine learning? Give a use case for each relevant to a data analyst.',h:'Tests ML awareness at the boundary of analyst and data scientist roles',skills:['Machine Learning','Python'],industries:['Tech & SaaS','Finance & Banking'],minYr:3,maxYr:5,diff:4},
+{id:28,cat:'tech',q:'Explain what k-means clustering is and how you would determine the optimal number of clusters.',h:'Tests applied ML knowledge: the elbow method and silhouette scores',skills:['Machine Learning','Python','R'],industries:['Marketing & Media','Retail & Ecommerce'],minYr:3,maxYr:5,diff:4},
+{id:29,cat:'tech',q:'How do you use VLOOKUP vs INDEX-MATCH in Excel? Why might INDEX-MATCH be preferred for large datasets?',h:'Tests Excel proficiency and understanding of formula performance trade-offs',skills:['Excel'],industries:['Finance & Banking','Consulting'],minYr:1,maxYr:3,diff:1},
+{id:30,cat:'tech',q:'What are Excel\'s limitations when analysing large or complex datasets? At what point would you move to Python or SQL?',h:'Tests tool selection maturity and understanding of Excel\'s scaling constraints',skills:['Excel','Python','SQL'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:31,cat:'tech',q:'How would you use Python\'s matplotlib or seaborn to create a multi-panel figure for a board-level report?',h:'Tests advanced Python visualisation and attention to professional presentation',skills:['Python','Storytelling'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:32,cat:'tech',q:'What is an API and how would you use Python\'s requests library to pull data from a REST API into a DataFrame?',h:'Tests data engineering awareness and practical Python API skills',skills:['Python','Data Engineering'],industries:['Tech & SaaS'],minYr:2,maxYr:5,diff:3},
+{id:33,cat:'tech',q:'Explain the concept of data normalisation (1NF, 2NF, 3NF) and why it matters for analysts consuming database tables.',h:'Tests database design literacy and its downstream analytical implications',skills:['SQL','Data Engineering'],industries:['all'],minYr:3,maxYr:5,diff:4},
+{id:34,cat:'tech',q:'What is version control and how have you used Git in a data analytics context?',h:'Tests workflow professionalism and reproducibility practices',skills:['Python','Data Engineering'],industries:['Tech & SaaS'],minYr:2,maxYr:5,diff:3},
+{id:35,cat:'tech',q:'How would you schedule and automate a recurring Python data pipeline that refreshes a dashboard every morning at 7am?',h:'Tests awareness of orchestration tools and production analytical workflow',skills:['Python','Data Engineering'],industries:['all'],minYr:4,maxYr:5,diff:5},
+// ── CASE STUDY ───────────────────────────────────────────────────────────────
+{id:36,cat:'case',q:'Our ecommerce company\'s revenue dropped 18% last month versus the previous month. Walk me through how you would diagnose the root cause.',h:'Tests structured problem decomposition and segmentation before concluding',skills:['SQL','Python','Storytelling'],industries:['Retail & Ecommerce','Tech & SaaS'],minYr:1,maxYr:5,diff:2},
+{id:37,cat:'case',q:'You\'ve been asked to build a customer churn model for a SaaS business. What data would you need, how do you define churn, and what are your analytical steps?',h:'Tests end-to-end analytical thinking from problem definition to output',skills:['Machine Learning','Python','Statistics'],industries:['Tech & SaaS'],minYr:3,maxYr:5,diff:4},
+{id:38,cat:'case',q:'A marketing team wants to know which of their three channels — email, paid social, and SEO — is driving the most value. How do you approach this attribution problem?',h:'Tests awareness of attribution modelling complexity and multi-touch considerations',skills:['Statistics','A/B Testing','Storytelling'],industries:['Marketing & Media','Retail & Ecommerce'],minYr:2,maxYr:5,diff:3},
+{id:39,cat:'case',q:'You\'re given a dataset of 2 million rows with product sales by store, region, and SKU. How do you identify which SKUs are underperforming and why?',h:'Tests analytical segmentation and hypothesis-driven investigation approach',skills:['SQL','Python','Excel'],industries:['Retail & Ecommerce','Logistics & Supply Chain'],minYr:1,maxYr:5,diff:2},
+{id:40,cat:'case',q:'Your company ran an A/B test on a new checkout flow. The variant shows a 3% uplift in conversion. How do you determine whether this result is significant and practically meaningful?',h:'Tests A/B test interpretation, sample size reasoning, and practical vs statistical significance',skills:['A/B Testing','Statistics'],industries:['Retail & Ecommerce','Tech & SaaS'],minYr:2,maxYr:5,diff:3},
+{id:41,cat:'case',q:'You\'re asked to forecast next quarter\'s sales for a UK retailer. What forecasting methods would you consider, and how would you validate your model?',h:'Tests forecasting methodology selection and model validation thinking',skills:['Forecasting','Python','R','Statistics'],industries:['Retail & Ecommerce'],minYr:2,maxYr:5,diff:3},
+{id:42,cat:'case',q:'A stakeholder tells you the data in your report is wrong. How do you respond and what steps do you take to investigate?',h:'Tests composure under challenge and systematic data validation approach',skills:['SQL','Storytelling'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:43,cat:'case',q:'You\'re analysing customer lifetime value (CLV) for a subscription business. How would you calculate it, and what assumptions are you making?',h:'Tests financial analytics awareness and sensitivity to modelling assumptions',skills:['Statistics','Python','Excel'],industries:['Tech & SaaS','Finance & Banking'],minYr:3,maxYr:5,diff:4},
+{id:44,cat:'case',q:'You notice website traffic increased significantly last Tuesday but no marketing campaign was running. How would you investigate this anomaly?',h:'Tests anomaly detection mindset and cross-functional data source awareness',skills:['SQL','Python'],industries:['Tech & SaaS','Marketing & Media'],minYr:1,maxYr:5,diff:2},
+{id:45,cat:'case',q:'The head of product asks: "Which features of our app are most correlated with users becoming paid subscribers?" How do you answer this?',h:'Tests correlation analysis, feature selection, and awareness of causation limitations',skills:['Statistics','Python','Machine Learning'],industries:['Tech & SaaS'],minYr:3,maxYr:5,diff:4},
+{id:46,cat:'case',q:'You are asked to create a pricing recommendation for a new product. What analytical framework and data sources would you use?',h:'Tests business acumen, pricing analytics, and ability to frame an ambiguous brief',skills:['Statistics','Storytelling'],industries:['Retail & Ecommerce','Finance & Banking','Consulting'],minYr:3,maxYr:5,diff:4},
+{id:47,cat:'case',q:'A logistics company notices delivery times have increased by 20% over the past quarter. Design an analysis to identify where in the supply chain delays are occurring.',h:'Tests process analysis, time-series breakdown, and root cause isolation',skills:['SQL','Python','Forecasting'],industries:['Logistics & Supply Chain'],minYr:2,maxYr:5,diff:3},
+{id:48,cat:'case',q:'You\'re given survey data from 5,000 customers rating satisfaction on a 1–10 scale. How would you analyse this to generate actionable insights?',h:'Tests survey data analysis, NPS thinking, and segmentation skills',skills:['Statistics','Excel','Python'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:49,cat:'case',q:'A product team wants to know if a new onboarding flow improves 30-day retention. They\'ve run a pilot with 500 users. How do you analyse this?',h:'Tests cohort analysis and retention metrics in a small-sample scenario',skills:['A/B Testing','Statistics','SQL'],industries:['Tech & SaaS'],minYr:2,maxYr:5,diff:3},
+{id:50,cat:'case',q:'You\'re asked to build a weekly executive dashboard. What KPIs would you include for a UK B2C retailer, and how do you decide what matters most?',h:'Tests business metric selection, stakeholder awareness, and dashboard design judgment',skills:['Power BI','Tableau','Storytelling'],industries:['Retail & Ecommerce'],minYr:1,maxYr:5,diff:2},
+{id:51,cat:'case',q:'Your dataset has 30% missing values in a key variable. What would you do before deciding how to handle the missingness?',h:'Tests MCAR/MAR/MNAR reasoning and thoughtful imputation decision-making',skills:['Statistics','Python','R'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:52,cat:'case',q:'You\'ve been asked to analyse staff absence data to identify patterns. What ethical considerations would you flag before starting?',h:'Tests data ethics awareness alongside analytical approach',skills:['SQL','Storytelling'],industries:['Healthcare & NHS','Consulting'],minYr:1,maxYr:5,diff:2},
+{id:53,cat:'case',q:'A finance team wants to understand which cost centres are overspending. How would you use data to identify the biggest opportunities for reduction?',h:'Tests financial data analysis and stakeholder-focused framing of outputs',skills:['SQL','Excel','Power BI'],industries:['Finance & Banking','Consulting'],minYr:2,maxYr:5,diff:3},
+{id:54,cat:'case',q:'You discover that two departments are using different definitions of "active customer." How do you resolve this and what impact might it have had on past reports?',h:'Tests data governance awareness and ability to surface definitional inconsistencies',skills:['SQL','Storytelling'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:55,cat:'case',q:'A campaign drove a spike in sign-ups, but the marketing team want to know if those users are as valuable as organic sign-ups. How would you compare cohort quality?',h:'Tests cohort analysis and long-term value framing beyond top-of-funnel metrics',skills:['SQL','Statistics','A/B Testing'],industries:['Marketing & Media','Tech & SaaS'],minYr:2,maxYr:5,diff:3},
+{id:56,cat:'case',q:'How would you design a demand forecasting solution for a supermarket chain with 10,000 SKUs across 200 stores, incorporating seasonality and promotions?',h:'Tests scalability thinking and awareness of time-series complexity at scale',skills:['Forecasting','Python','Machine Learning'],industries:['Retail & Ecommerce','Logistics & Supply Chain'],minYr:4,maxYr:5,diff:5},
+{id:57,cat:'case',q:'You\'re asked to recommend which of 50 marketing micro-segments should receive a promotional email. How do you build and prioritise a targeting model?',h:'Tests segmentation, propensity modelling awareness, and commercial prioritisation',skills:['Machine Learning','Statistics','SQL'],industries:['Marketing & Media','Retail & Ecommerce'],minYr:3,maxYr:5,diff:4},
+{id:58,cat:'case',q:'Your company is considering opening a new UK retail location. What data would you use to recommend the best city and site?',h:'Tests geospatial thinking, demographic data usage, and business site selection logic',skills:['Python','SQL','Storytelling'],industries:['Retail & Ecommerce'],minYr:3,maxYr:5,diff:4},
+{id:59,cat:'case',q:'A dataset you\'re relying on suddenly stops updating due to a pipeline failure. How do you handle the situation and communicate it to stakeholders?',h:'Tests data reliability awareness and stakeholder communication under uncertainty',skills:['Data Engineering','Storytelling'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:60,cat:'case',q:'You\'re given two years of transactional data and asked to identify the top factors driving customer basket size. How do you approach this?',h:'Tests regression thinking, variable selection, and commercial interpretation of outputs',skills:['Statistics','Python','SQL'],industries:['Retail & Ecommerce'],minYr:3,maxYr:5,diff:4},
+{id:61,cat:'case',q:'A social media team claims their posts drove a 40% increase in website sessions. How would you validate or challenge this claim?',h:'Tests analytical scepticism, attribution reasoning, and controlled comparison thinking',skills:['A/B Testing','Statistics','Storytelling'],industries:['Marketing & Media'],minYr:2,maxYr:5,diff:3},
+{id:62,cat:'case',q:'Your company is launching a loyalty scheme. How would you set up a measurement framework to evaluate its success in the first 6 months?',h:'Tests experimental design, KPI definition, and long-term measurement planning',skills:['A/B Testing','Statistics','Storytelling'],industries:['Retail & Ecommerce','Finance & Banking'],minYr:2,maxYr:5,diff:3},
+{id:63,cat:'case',q:'You\'ve been asked to benchmark your company\'s customer satisfaction scores against industry peers. What data sources would you use and what caveats apply?',h:'Tests benchmarking methodology and awareness of comparability limitations',skills:['Statistics','Storytelling'],industries:['Consulting','Retail & Ecommerce'],minYr:2,maxYr:5,diff:3},
+{id:64,cat:'case',q:'An operations team wants to reduce call centre wait times. How would you use data to identify peak demand periods and recommend staffing changes?',h:'Tests time-series analysis, workforce planning logic, and ops data application',skills:['SQL','Python','Forecasting'],industries:['Healthcare & NHS','Finance & Banking','Energy & Utilities'],minYr:2,maxYr:5,diff:3},
+{id:65,cat:'case',q:'A stakeholder wants a one-number answer: "What is the ROI of our data team?" How do you respond to this?',h:'Tests ability to handle ambiguous ROI questions and frame value in measurable but honest terms',skills:['Storytelling'],industries:['Consulting','Tech & SaaS'],minYr:3,maxYr:5,diff:4},
+// ── BEHAVIOURAL ──────────────────────────────────────────────────────────────
+{id:66,cat:'beh',q:'Tell me about a time you had to explain a complex technical finding to a non-technical audience. What approach did you take and what was the outcome?',h:'Assesses communication clarity and audience adaptation (STAR)',skills:['Storytelling'],industries:['all'],minYr:1,maxYr:5,diff:1},
+{id:67,cat:'beh',q:'Describe a situation where your analysis led to a business decision you later discovered was based on flawed data. How did you handle it?',h:'Assesses accountability, error handling, and honesty under pressure',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:68,cat:'beh',q:'Tell me about a time you disagreed with a stakeholder\'s interpretation of data. How did you manage the situation?',h:'Assesses influencing skills and professional diplomacy in data-driven disagreements',skills:['Storytelling'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:69,cat:'beh',q:'Describe a project where you had to manage multiple competing deadlines simultaneously. How did you prioritise your work?',h:'Assesses time management and ability to operate under competing demands',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:70,cat:'beh',q:'Tell me about a time you proactively identified an insight the business hadn\'t asked for but which turned out to be valuable.',h:'Assesses analytical curiosity and initiative beyond the brief',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:71,cat:'beh',q:'Describe a time when you had to learn a new tool or technology quickly to deliver a project. How did you approach the learning?',h:'Assesses self-directed learning and adaptability to new technical environments',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:1},
+{id:72,cat:'beh',q:'Tell me about a time you worked with a cross-functional team. What challenges arose and how did you navigate them?',h:'Assesses collaborative working style and ability to bridge technical and business teams',skills:['Storytelling'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:73,cat:'beh',q:'Give me an example of a time when you challenged how your team was measuring something. What resistance did you encounter?',h:'Assesses change management ability and courage to advocate for better practice',skills:['Storytelling'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:74,cat:'beh',q:'Describe a situation where you were given an ambiguous brief or unclear requirements. How did you clarify and proceed?',h:'Assesses scoping ability and comfort with ambiguity',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:75,cat:'beh',q:'Tell me about the most complex dataset you have worked with. What made it difficult and how did you manage the complexity?',h:'Assesses technical depth and structured thinking under data complexity',skills:['SQL','Python','Data Engineering'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:76,cat:'beh',q:'Describe a time you made a mistake in an analysis. How did you discover it and what did you do to correct it?',h:'Assesses integrity, quality-checking habits, and how one responds to their own errors',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:77,cat:'beh',q:'Tell me about a time you had to deliver findings the business did not want to hear. How did you present them?',h:'Assesses confidence in sharing uncomfortable truths constructively',skills:['Storytelling'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:78,cat:'beh',q:'Give an example of when you used data storytelling to influence a key decision. What narrative techniques did you use?',h:'Assesses ability to frame data as a compelling story rather than a raw output',skills:['Storytelling','Power BI','Tableau'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:79,cat:'beh',q:'Describe a time when a project you were working on was de-prioritised or cancelled. How did you respond?',h:'Assesses resilience and professional response to shifting business priorities',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:80,cat:'beh',q:'Tell me about a time you had to work with poor-quality or unreliable data. What steps did you take to manage this?',h:'Assesses data quality handling and ability to communicate caveats clearly',skills:['SQL','Python','Statistics'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:81,cat:'beh',q:'Describe a situation where you built a strong working relationship with a difficult stakeholder.',h:'Assesses stakeholder management and interpersonal intelligence',skills:['Storytelling'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:82,cat:'beh',q:'Give an example of a time when you improved a recurring report or process. What was the business impact?',h:'Assesses continuous improvement mindset and process efficiency thinking',skills:['SQL','Python','Excel','Power BI'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:83,cat:'beh',q:'Tell me about a time when you presented to senior leadership. How did you tailor your communication for that audience?',h:'Assesses executive communication and ability to lead with insight not data',skills:['Storytelling'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:84,cat:'beh',q:'Describe a time you had to make a data-driven recommendation with limited or incomplete information. How did you handle the uncertainty?',h:'Assesses comfort with uncertainty and appropriate confidence communication',skills:['Statistics','Storytelling'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:85,cat:'beh',q:'Tell me about a time you successfully automated or streamlined a manual analytical process. What was the business impact?',h:'Assesses efficiency mindset and practical automation skills',skills:['Python','SQL','Data Engineering'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:86,cat:'beh',q:'Give me an example of a piece of analytical work you are particularly proud of. What made it stand out?',h:'Assesses self-awareness, ambition, and quality bar for analytical output',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:1},
+{id:87,cat:'beh',q:'Tell me about a time you had to quickly understand a new business domain to deliver analysis. How did you get up to speed?',h:'Assesses domain agility and ability to context-switch as an analyst',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:88,cat:'beh',q:'Describe a time you had a conflict with a team member on an analytical project. How was it resolved?',h:'Assesses conflict resolution and collaborative maturity',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:89,cat:'beh',q:'How have you ensured the reproducibility and documentation of your analytical work so others can understand or continue it?',h:'Assesses code documentation habits and analytical governance awareness',skills:['Python','SQL','Data Engineering'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:90,cat:'beh',q:'Tell me about a time when you managed stakeholder expectations when a project took longer than anticipated.',h:'Assesses expectation management and proactive communication under timeline pressure',skills:['Storytelling'],industries:['all'],minYr:1,maxYr:5,diff:2},
+// ── INDUSTRY ─────────────────────────────────────────────────────────────────
+{id:91,cat:'ind',q:'What is GDPR and how does it affect the day-to-day work of a data analyst in the UK? Give a practical example.',h:'Tests UK regulatory literacy and applied compliance awareness',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:1},
+{id:92,cat:'ind',q:'How does UK GDPR differ from EU GDPR post-Brexit, and what does this mean for UK companies sharing data internationally?',h:'Tests post-Brexit regulatory nuance relevant to UK data roles',skills:['all'],industries:['Finance & Banking','Healthcare & NHS','Consulting'],minYr:2,maxYr:5,diff:3},
+{id:93,cat:'ind',q:'What is the ICO and what role does it play in UK data governance? Have you had direct experience working within ICO guidelines?',h:'Tests awareness of the UK regulatory body and its practical relevance',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:94,cat:'ind',q:'How do you stay current with developments in data analytics? What resources, communities, or tools do you follow?',h:'Tests genuine professional curiosity and continuous learning habits',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:1},
+{id:95,cat:'ind',q:'What do you see as the biggest challenges currently facing data analysts in the UK job market, and how are you preparing for them?',h:'Tests industry awareness and forward-looking career readiness',skills:['all'],industries:['all'],minYr:2,maxYr:5,diff:3},
+{id:96,cat:'ind',q:'How has the rise of AI and large language models changed — or how do you expect it to change — the day-to-day role of a data analyst?',h:'Tests awareness of AI\'s impact on analytical roles and adaptability mindset',skills:['Machine Learning'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:97,cat:'ind',q:'If you were joining this company, what would your 30-60-90 day plan look like as a new data analyst?',h:'Assesses strategic onboarding thinking and proactive contribution mindset',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:98,cat:'ind',q:'Why are you looking to move from your current role, and what specifically about this company and team attracted you to apply?',h:'Assesses motivation, cultural fit awareness, and genuine interest in the organisation',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:1},
+{id:99,cat:'ind',q:'Where do you see your career progressing over the next 3–5 years — towards a specialist technical path, or a more strategic or leadership direction?',h:'Assesses career clarity, ambition, and alignment with growth opportunities',skills:['all'],industries:['all'],minYr:1,maxYr:5,diff:2},
+{id:100,cat:'ind',q:'What is one UK-specific industry trend in your target sector that you think will most significantly affect how data is used over the next two years?',h:'Tests sector intelligence, commercial awareness, and contextualisation of data in UK industry',skills:['all'],industries:['Retail & Ecommerce','Finance & Banking','Healthcare & NHS','Tech & SaaS','Marketing & Media','Logistics & Supply Chain','Consulting','Energy & Utilities'],minYr:2,maxYr:5,diff:3},
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let selectedYear = 3;
+let selectedSkills = [];
+let selectedInds = [];
+let currentQs = [];
+let doneSet = new Set();
+
+function updateYear(v) {
+  selectedYear = parseInt(v);
+  document.getElementById('yr-num').textContent = v;
+  const pct = ((v - 1) / 4) * 100;
+  document.getElementById('yr-slider').style.setProperty('--pct', pct + '%');
+  updateSummary();
+}
+updateYear(3);
+
+function togglePill(el, type) {
+  const val = el.textContent.trim();
+  el.classList.toggle('active');
+  if (type === 'skill') {
+    if (selectedSkills.includes(val)) selectedSkills = selectedSkills.filter(s => s !== val);
+    else selectedSkills.push(val);
+  } else {
+    if (selectedInds.includes(val)) selectedInds = selectedInds.filter(s => s !== val);
+    else selectedInds.push(val);
+  }
+  updateSummary();
+}
+
+function updateSummary() {
+  const parts = [`${selectedYear} yr${selectedYear > 1 ? 's' : ''} exp`];
+  if (selectedSkills.length) parts.push(selectedSkills.slice(0,3).join(', ') + (selectedSkills.length > 3 ? ` +${selectedSkills.length-3}` : ''));
+  if (selectedInds.length) parts.push(selectedInds[0] + (selectedInds.length > 1 ? ` +${selectedInds.length-1}` : ''));
+  document.getElementById('sel-summary').textContent = parts.join(' · ');
+}
+
+function scoreQ(q) {
+  let score = 0;
+  // Year match
+  if (q.minYr <= selectedYear && q.maxYr >= selectedYear) score += 30;
+  else if (Math.abs(q.minYr - selectedYear) <= 1 || Math.abs(q.maxYr - selectedYear) <= 1) score += 10;
+  // Skill match
+  if (selectedSkills.length === 0) score += 20;
+  else {
+    const match = selectedSkills.filter(s => q.skills.includes(s) || q.skills.includes('all'));
+    score += match.length * 15;
+  }
+  // Industry match
+  if (selectedInds.length === 0) score += 15;
+  else {
+    if (q.industries.includes('all')) score += 12;
+    else {
+      const match = selectedInds.filter(i => q.industries.includes(i));
+      score += match.length * 15;
+    }
+  }
+  // Add some variance
+  score += Math.random() * 5;
+  return score;
+}
+
+function generateQuestions() {
+  const scored = ALL_QS.map(q => ({ ...q, score: scoreQ(q) }));
+  scored.sort((a, b) => b.score - a.score);
+  // Take top 100, but ensure category balance
+  const cats = ['tech', 'case', 'beh', 'ind'];
+  const targets = { tech: 35, case: 30, beh: 25, ind: 10 };
+  const selected = [];
+  const buckets = { tech: [], case: [], beh: [], ind: [] };
+  scored.forEach(q => buckets[q.cat].push(q));
+  cats.forEach(c => {
+    selected.push(...buckets[c].slice(0, targets[c]));
+  });
+  // Sort each category by score descending
+  selected.sort((a, b) => {
+    if (a.cat !== b.cat) return cats.indexOf(a.cat) - cats.indexOf(b.cat);
+    return b.score - a.score;
+  });
+  // Renumber
+  let n = 1;
+  selected.forEach(q => q.displayNum = n++);
+  currentQs = selected;
+  doneSet = new Set();
+  renderResults();
+}
+
+function renderResults() {
+  document.getElementById('welcome-state').style.display = 'none';
+  document.getElementById('results-area').style.display = 'block';
+  const yrLabel = ['1 year','2 years','3 years','4 years','5+ years'][selectedYear-1];
+  const skillStr = selectedSkills.length ? selectedSkills.join(', ') : 'All skills';
+  const indStr = selectedInds.length ? selectedInds.join(', ') : 'All industries';
+  document.getElementById('results-title').textContent = `Your Personalised Interview Questions`;
+  document.getElementById('results-meta').textContent = `${yrLabel} experience · ${skillStr} · ${indStr}`;
+  renderCategories(currentQs);
+  updateProgress();
+}
+
+function filterQuestions() {
+  const q = document.getElementById('q-search').value.toLowerCase();
+  renderCategories(currentQs, q);
+}
+
+const catConfig = {
+  tech: { label: 'Skill-Based Technical Questions', color: '#2a6db5', dot: '#2a6db5', tagBg: '#e8f0fb', tagColor: '#1a4a8c' },
+  case: { label: 'Case Study & Scenario-Based Questions', color: '#1a8c5a', dot: '#1a8c5a', tagBg: '#e6f5ec', tagColor: '#145c30' },
+  beh:  { label: 'Behavioural & Competency Questions', color: '#c17a00', dot: '#c17a00', tagBg: '#fdf0e2', tagColor: '#7a3a00' },
+  ind:  { label: 'Industry & Role-Specific Questions', color: '#7b4ea0', dot: '#7b4ea0', tagBg: '#f0eafc', tagColor: '#4a1c7a' },
+};
+const catOrder = ['tech','case','beh','ind'];
+const catShort = { tech: 'Technical', case: 'Case Study', beh: 'Behavioural', ind: 'Industry' };
+
+const diffColors = ['#ccc','#90d4a8','#f0c080','#f09595','#e24b4a'];
+const diffLabels = ['','Foundational','Intermediate','Advanced','Expert','Senior+'];
+
+function renderCategories(qs, search = '') {
+  const container = document.getElementById('categories-container');
+  let html = '';
+  catOrder.forEach(cat => {
+    const cfg = catConfig[cat];
+    let catQs = qs.filter(q => q.cat === cat);
+    if (search) catQs = catQs.filter(q => q.q.toLowerCase().includes(search) || q.h.toLowerCase().includes(search));
+    if (!catQs.length) return;
+    html += `<div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-dot" style="background:${cfg.dot}"></div>
+        <div class="cat-title">${cfg.label}</div>
+        <div class="cat-count">${catQs.length} questions</div>
+      </div>`;
+    catQs.forEach(q => {
+      const isDone = doneSet.has(q.id);
+      html += `<div class="q-card${isDone ? ' done' : ''}" id="qcard-${q.id}" onclick="toggleDone(${q.id})">
+        <div class="q-num">#${q.displayNum}</div>
+        <div class="q-body">
+          <div>
+            <span class="q-tag" style="background:${cfg.tagBg};color:${cfg.tagColor}">${catShort[q.cat]}</span>
+            <span class="diff-badge">
+              <span class="diff-dot" style="background:${diffColors[q.diff-1]}"></span>
+              ${diffLabels[q.diff]}
+            </span>
+          </div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-hint">▸ ${q.h}</div>
+        </div>
+        <button class="done-btn" onclick="event.stopPropagation();toggleDone(${q.id})">${isDone ? '✓ Done' : 'Mark done'}</button>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  if (!html) html = '<div class="no-results">No questions match your search.</div>';
+  container.innerHTML = html;
+}
+
+function toggleDone(id) {
+  if (doneSet.has(id)) doneSet.delete(id);
+  else doneSet.add(id);
+  const card = document.getElementById('qcard-' + id);
+  if (card) {
+    const q = currentQs.find(q => q.id === id);
+    const isDone = doneSet.has(id);
+    card.classList.toggle('done', isDone);
+    const btn = card.querySelector('.done-btn');
+    if (btn) btn.textContent = isDone ? '✓ Done' : 'Mark done';
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = currentQs.length;
+  const done = doneSet.size;
+  const pct = total ? (done / total) * 100 : 0;
+  document.getElementById('pbar').style.width = pct + '%';
+  document.getElementById('prog-text').textContent = `${done} / ${total} done`;
+}
+
+function resetAll() {
+  selectedYear = 3;
+  selectedSkills = [];
+  selectedInds = [];
+  document.getElementById('yr-slider').value = 3;
+  updateYear(3);
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('sel-summary').textContent = 'Select your experience, skills & industry above';
+  document.getElementById('welcome-state').style.display = 'block';
+  document.getElementById('results-area').style.display = 'none';
+  currentQs = [];
+  doneSet = new Set();
+}
+</script>
+</body>
+</html>
